@@ -1,6 +1,6 @@
 {
   "name": "actions",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Shared Github Actions for the archilogic-com github org",
   "scripts": {
     "release": "npx standard-version"
