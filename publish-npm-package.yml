@@ -1,0 +1,35 @@
+name: Publish NPM package
+on:
+  workflow_call:
+    secrets:
+      npmTokenRead:
+        required: true
+      npmTokenPublish:
+        required: true
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          registry-url: https://registry.npmjs.org/
+      - run: npm install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.npmTokenRead }}
+      - id: get-dist-tag
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { parse } = require('semver')
+            const { version } = require('./package.json')
+
+            const [numberOrTag] = parse(version).prerelease
+            const isTag = typeof numberOrTag === 'string'
+            const distTag = isTag ? numberOrTag : 'latest'
+
+            core.setOutput('dist-tag', distTag)
+      - run: npm run build && npm publish --tag ${{steps.get-dist-tag.outputs.dist-tag}}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.npmTokenPublish }}

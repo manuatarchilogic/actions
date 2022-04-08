@@ -1,0 +1,19 @@
+{
+  "name": "actions",
+  "version": "1.0.0",
+  "description": "Shared Github Actions for the archilogic-com github org",
+  "scripts": {
+    "release": "npx standard-version"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/archilogic-com/actions.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/archilogic-com/actions/issues"
+  },
+  "homepage": "https://github.com/archilogic-com/actions#readme"
+}
