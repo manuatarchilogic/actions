@@ -1,4 +1,4 @@
-name: Publish NPM package
+name: Publish npm package
 on:
   workflow_call:
     secrets:
@@ -6,6 +6,13 @@ on:
         required: true
       npmTokenPublish:
         required: true
+    inputs:
+      includeWorkspaces:
+        description: 'Whether to set --workspaces=true when running npm commands'
+        default: false
+        required: false
+        type: boolean
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -15,7 +22,7 @@ jobs:
         with:
           node-version: 16.x
           registry-url: https://registry.npmjs.org/
-      - run: npm install
+      - run: npm install --workspaces=${{github.event.inputs.includeWorkspaces}}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npmTokenRead }}
       - id: get-dist-tag
@@ -30,6 +37,8 @@ jobs:
             const distTag = isTag ? numberOrTag : 'latest'
 
             core.setOutput('dist-tag', distTag)
-      - run: npm run build --if-present && npm publish --tag ${{steps.get-dist-tag.outputs.dist-tag}}
+
+      - run: npm run build --if-present --workspaces=${{github.event.inputs.includeWorkspaces}}
+      - run: npm publish --tag ${{steps.get-dist-tag.outputs.dist-tag}} --workspaces=${{github.event.inputs.includeWorkspaces}}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npmTokenPublish }}
