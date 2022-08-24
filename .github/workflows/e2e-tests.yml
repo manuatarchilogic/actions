@@ -54,3 +54,5 @@ jobs:
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+          GIT_BRANCH: ${{ github.ref_name }}
+
