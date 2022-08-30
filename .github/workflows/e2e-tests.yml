@@ -51,6 +51,7 @@ jobs:
           wait-on-timeout: 120
           record: true
           parallel: true
+          config-file: 'cypress.config.ts'
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
