@@ -52,7 +52,7 @@ jobs:
           start: ${{ inputs.start-command }}
           wait-on: ${{ inputs.wait-on-url }}
           wait-on-timeout: 120
-          record: false
+          record: true
           parallel: true
           config-file: ${{ inputs.config-file }}
         env:
