@@ -11,6 +11,9 @@ on:
       wait-on-url:
         type: string
         default: 'http://localhost:3000/'
+      config-file:
+        type: string
+        default: 'cypress.config.ts'
     secrets:
       NODE_AUTH_TOKEN:
         required: true
@@ -51,6 +54,7 @@ jobs:
           wait-on-timeout: 120
           record: true
           parallel: true
+          config-file: ${{ inputs.config-file }}
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
