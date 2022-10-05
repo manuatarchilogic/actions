@@ -55,6 +55,7 @@ jobs:
           record: true
           parallel: true
           config-file: ${{ inputs.config-file }}
+          browser: chrome
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
